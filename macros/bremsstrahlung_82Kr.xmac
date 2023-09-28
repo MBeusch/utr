@@ -6,22 +6,22 @@
 ## This macro simulates the generation of a bremsstrahlungs beam from electrons with an Au bremstarget to obtain the bremsstrahlung spectrum of the 112Sn relative measurement at DHIPS in 2015.
 
 #[generalConfig]
-#outputDir=../Output_utr/Bremsstrahlung/test3
+#outputDir=../Output_utr/Bremsstrahlung/Bremsstrahlung_82Kr
 #niceness=19
 #threads=200
 #ensureTerminalMultiplexer=True
 
 
 #[environmentVariables]
-#filenamePrefix=Bremsstrahlung_
+#filenamePrefix=bremsstrahlung_
 #filenameSuffix=
 #filenameTemplate={filenamePrefix}{loopVar}_MeV_sim_
 #setterCmd=/gps/ene/mono {loopVar} MeV
 
 #[utrBuildOptions]
 #CMAKE_BUILD_TYPE=Release
-#CAMPAIGN=Bremsstrahlung_flux
-#DETECTOR_CONSTRUCTION=DHIPS_2015_Sn112
+#CAMPAIGN=Bremsstrahlung
+#DETECTOR_CONSTRUCTION=Bremsstrahlung_82Kr
 #GENERATOR_ANGCORR=OFF
 #GENERATOR_ANGDIST=OFF
 #EVENT_EKIN=ON
@@ -35,8 +35,8 @@
 
 
 #[getHistogramArgs]
-##quantity=ekin
-#maxenergy=15
+#quantity=ekin
+#maxenergy=10  #MeV
 #maxid=0       # max ID of sensitive volumes
 
 #[histogramToTxtArgs]
@@ -47,7 +47,7 @@
 
 # Never simulate more than 2^32= 4294967296 particles using /run/beamOn, since this causes an overflow in the random number seed, giving you in principle the same results over and over again.
 # In such cases execute the same simulation multiple times instead.
-/control/alias beamOnStatistics 200000    #2000000000
+/control/alias beamOnStatistics 200000000    #2000000000
 
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
@@ -60,9 +60,10 @@
 /control/alias appendZerosToVarPadding 2
 
 
-# Set up a monoenergetic e- point-like beam
+# Set up a monoenergetic, circular, polarized beam with a diameter that is slightly larger than the collimator diameter (0.75in <-> 9.525 mm) in order to simulate scattering off the collimator as well.
 
 /run/initialize
+
 /gps/particle e-
 /gps/pos/type Point
 #/gps/pos/type Beam
@@ -71,6 +72,7 @@
 /gps/pos/centre 0. 0. -1700 mm 
 /gps/direction 0. 0. 1.
 #/gps/polarization 1. 0. 0.
+
 /gps/ene/type Mono
 
 
@@ -79,5 +81,7 @@
 # for each Syntax: /control/foreach MacroFile Variable ValueList
 # To use the variable in the macro to be looped refer to it wrapped in {} as {Variable} in the macro
 # Remember that due to the numerical inaccuracies when adding float numbers, a loop might generate a run more or less than expected!
+#Number of repeats of the simulation
 /control/alias simulationRepeatCount 1 
-/control/foreach macros/examples/repeatSim.mac loopVar 2.5
+#Energy of the 82Kr experiment of the DHIPS2020 Campaign.
+/control/foreach macros/examples/repeatSim.mac loopVar 5.2   
