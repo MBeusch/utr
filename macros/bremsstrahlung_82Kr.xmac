@@ -47,7 +47,7 @@
 
 # Never simulate more than 2^32= 4294967296 particles using /run/beamOn, since this causes an overflow in the random number seed, giving you in principle the same results over and over again.
 # In such cases execute the same simulation multiple times instead.
-/control/alias beamOnStatistics 200000000    #2000000000
+/control/alias beamOnStatistics 2000000000    #2000000000
 
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
@@ -82,6 +82,6 @@
 # To use the variable in the macro to be looped refer to it wrapped in {} as {Variable} in the macro
 # Remember that due to the numerical inaccuracies when adding float numbers, a loop might generate a run more or less than expected!
 #Number of repeats of the simulation
-/control/alias simulationRepeatCount 1 
+/control/alias simulationRepeatCount 100 
 #Energy of the 82Kr experiment of the DHIPS2020 Campaign.
 /control/foreach macros/examples/repeatSim.mac loopVar 5.2   
