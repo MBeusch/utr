@@ -128,19 +128,19 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   RadiatorTarget.Construct(G4ThreeVector(0, 0, -1190 * mm), "Radiator1", "Au", 3 * mm, "Al", 0.); // Position guesstimated
   RadiatorTarget.Construct(G4ThreeVector(0, 0, -1160 * mm), "Radiator2", "Au", 3 * mm, "Al", 0.); // Position guesstimated
 
-  auto BGO1 = BGO(World_Logical, "BGO1");
+  auto BGO80 = BGO(World_Logical, "BGO80");
   auto BGO2 = BGO(World_Logical, "BGO2");
   auto BGOPol = BGO(World_Logical, "BGOPol");
-  // auto HPGe1 = DetectorInfo::get(DetectorDHIPS::HPGe1, PositionDHIPS::Right90);
+  auto HPGe80 = DetectorInfo::get(DetectorDHIPS::HPGe80, PositionDHIPS::Right90);
   auto HPGe2 = DetectorInfo::get(DetectorDHIPS::HPGe2, PositionDHIPS::Left130, false);
   auto HPGePol = DetectorInfo::get(DetectorDHIPS::HPGePol, PositionDHIPS::Left90);
 
-  // Detectors.ConstructDetectorBGO(G4ThreeVector(), HPGe1, BGO1);
+  Detectors.ConstructDetectorBGO(G4ThreeVector(), HPGe80, BGO80);
   Detectors.ConstructDetectorBGO(G4ThreeVector(), HPGe2, BGO2);
   Detectors.ConstructDetectorBGO(G4ThreeVector(), HPGePol, BGOPol);
-  LeadCastle.Construct(G4ThreeVector(), &BGO1, &BGO2, &BGOPol);
-  Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGe1, 10. * mm, 10. * mm);
-  Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGe2, 10. * mm, 5. * mm);
+  LeadCastle.Construct(G4ThreeVector(), &BGO80, &BGO2, &BGOPol);
+  Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGe80, 10. * mm, 10. * mm);
+  Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGe2, 10. * mm, 10. * mm);
   Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGePol, 10. * mm, 10. * mm);
 
 #ifdef USE_TARGETS
@@ -154,10 +154,10 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
 
 void DetectorConstruction::ConstructSDandField() {
 
-  // EnergyDepositionSD *HPGe1SD = new EnergyDepositionSD("HPGe1", "HPGe1");
-  // G4SDManager::GetSDMpointer()->AddNewDetector(HPGe1SD);
-  // HPGe1SD->SetDetectorID(1);
-  // SetSensitiveDetector("HPGe1", HPGe1SD, true);
+  EnergyDepositionSD *HPGe80SD = new EnergyDepositionSD("HPGe80", "HPGe80");
+  G4SDManager::GetSDMpointer()->AddNewDetector(HPGe80SD);
+  HPGe80SD->SetDetectorID(1);
+  SetSensitiveDetector("HPGe80", HPGe80SD, true);
 
   EnergyDepositionSD *HPGe2SD = new EnergyDepositionSD("HPGe2", "HPGe2");
   G4SDManager::GetSDMpointer()->AddNewDetector(HPGe2SD);
