@@ -1,0 +1,81 @@
+#!/usr/bin/env utrwrapper.py
+## An (utrwrapper.py) extended macro starts with a configuration header embedded in comment lines (preceded by a single '#')
+## For real comment lines in the header use multiple '#'s
+## Run utrwrapper.py -h for a list of all available configuration options and their effects
+
+## This macro simulates the generation of a bremsstrahlungs beam from electrons with an Au bremstarget to obtain the bremsstrahlung spectrum of the 112Sn relative measurement at DHIPS in 2015.
+
+#[generalConfig]
+#outputDir=../Output_utr/Efficiency/Efficiency_82Kr
+#niceness=19
+#threads=200
+#ensureTerminalMultiplexer=True
+
+
+#[environmentVariables]
+#filenamePrefix=efficiency_
+#filenameSuffix=
+#filenameTemplate={filenamePrefix}{loopVar}_MeV_
+#setterCmd=/gps/ene/mono {loopVar} MeV
+
+#[utrBuildOptions]
+#CMAKE_BUILD_TYPE=Release
+#CAMPAIGN=DHIPS_2019
+#DETECTOR_CONSTRUCTION=Kr82
+#USE_TARGETS=OFF
+#GENERATOR_ANGCORR=OFF
+#GENERATOR_ANGDIST=OFF
+#EVENT_EKIN=OFF
+#EVENT_EDEP=ON
+#EVENT_ID=OFF
+#EVENT_PARTICLE=ON
+#PRINT_PROGRESS=20000000
+#EM_LIVERMORE_POLARIZED=OFF
+#EM_LIVERMORE=OFF
+#EM_PENELOPE=ON
+
+
+#[getHistogramArgs]
+#quantity=edep
+#maxenergy=10  #MeV
+#maxid=3       # max ID of sensitive volumes
+
+#[histogramToTxtArgs]
+#end=0         # Don't export sum hist to txt
+
+## The required magic string signals the end of the configuration header
+#START_OF_MACRO
+
+# Never simulate more than 2^32= 4294967296 particles using /run/beamOn, since this causes an overflow in the random number seed, giving you in principle the same results over and over again.
+# In such cases execute the same simulation multiple times instead.
+/control/alias beamOnStatistics 1000000    #2000000000
+
+
+# Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
+/control/getEnv filenamePrefix
+/control/getEnv filenameSuffix
+
+# Disable appendage of additional IDs to filenames (as unique filenames containing the simulated energy will be used for each beamOn)
+/utr/setUseFilenameID True
+# Set the number of required decimal places for padding of loopVar (no padding here as loopVar only takes integer values)
+/control/alias appendZerosToVarPadding 2
+
+
+# Set up a monoenergetic, circular, polarized beam with a diameter that is slightly larger than the collimator diameter (0.75in <-> 9.525 mm) in order to simulate scattering off the collimator as well.
+
+/run/initialize
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre 0. 0. 0. mm
+/gps/ang/type iso
+/gps/ene/type Mono
+
+
+# Run the generic macro in a loop
+# loop Syntax: /control/loop MacroFile Variable Start End Increment
+# for each Syntax: /control/foreach MacroFile Variable ValueList
+# To use the variable in the macro to be looped refer to it wrapped in {} as {Variable} in the macro
+# Remember that due to the numerical inaccuracies when adding float numbers, a loop might generate a run more or less than expected! 
+#Energy of the 82Kr experiment of the DHIPS2020 Campaign.
+/control/foreach macros/examples/genericLoopable.mac loopVar 1.0 2.0 
+ 
