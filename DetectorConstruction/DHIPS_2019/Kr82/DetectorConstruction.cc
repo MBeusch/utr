@@ -156,17 +156,17 @@ void DetectorConstruction::ConstructSDandField() {
 
   EnergyDepositionSD *HPGe80SD = new EnergyDepositionSD("HPGe80", "HPGe80");
   G4SDManager::GetSDMpointer()->AddNewDetector(HPGe80SD);
-  HPGe80SD->SetDetectorID(1);
+  HPGe80SD->SetDetectorID(0);
   SetSensitiveDetector("HPGe80", HPGe80SD, true);
 
   EnergyDepositionSD *HPGe2SD = new EnergyDepositionSD("HPGe2", "HPGe2");
   G4SDManager::GetSDMpointer()->AddNewDetector(HPGe2SD);
-  HPGe2SD->SetDetectorID(2);
+  HPGe2SD->SetDetectorID(1);
   SetSensitiveDetector("HPGe2", HPGe2SD, true);
 
   EnergyDepositionSD *HPGePolSD = new EnergyDepositionSD("HPGePol", "HPGePol");
   G4SDManager::GetSDMpointer()->AddNewDetector(HPGePolSD);
-  HPGePolSD->SetDetectorID(3);
+  HPGePolSD->SetDetectorID(2);
   SetSensitiveDetector("HPGePol", HPGePolSD, true);
 }
 

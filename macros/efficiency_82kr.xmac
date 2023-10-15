@@ -3,7 +3,7 @@
 ## For real comment lines in the header use multiple '#'s
 ## Run utrwrapper.py -h for a list of all available configuration options and their effects
 
-## This macro simulates the generation of a bremsstrahlungs beam from electrons with an Au bremstarget to obtain the bremsstrahlung spectrum of the 112Sn relative measurement at DHIPS in 2015.
+## ## This macro simulates the efficiency of detectors used in the 82Kr experiment.
 
 #[generalConfig]
 #outputDir=../Output_utr/Efficiency/Efficiency_82Kr
@@ -38,17 +38,18 @@
 #[getHistogramArgs]
 #quantity=edep
 #maxenergy=10  #MeV
-#maxid=3       # max ID of sensitive volumes
+#maxid=2       # max ID of sensitive volumes
 
 #[histogramToTxtArgs]
-#end=0         # Don't export sum hist to txt
+#begin=0
+#end=2  #Don't export sum_hist (id=3 if 3 dets are used with id=0,1,2) to txt
 
 ## The required magic string signals the end of the configuration header
 #START_OF_MACRO
 
 # Never simulate more than 2^32= 4294967296 particles using /run/beamOn, since this causes an overflow in the random number seed, giving you in principle the same results over and over again.
 # In such cases execute the same simulation multiple times instead.
-/control/alias beamOnStatistics 1000000    #2000000000
+/control/alias beamOnStatistics 100000000    #2000000000
 
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
@@ -77,5 +78,6 @@
 # To use the variable in the macro to be looped refer to it wrapped in {} as {Variable} in the macro
 # Remember that due to the numerical inaccuracies when adding float numbers, a loop might generate a run more or less than expected! 
 #Energy of the 82Kr experiment of the DHIPS2020 Campaign.
-/control/foreach macros/examples/genericLoopable.mac loopVar 1.0 2.0 
+#/control/foreach macros/examples/genericLoopable.mac loopVar 0.5 1.0 2.0 
+/control/loop macros/examples/genericLoopable.mac loopVar 0.4 6.0 0.4
  
