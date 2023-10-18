@@ -6,14 +6,14 @@
 ## This macro simulates the detection process of a Silicon wafer, when irradiated with an e- beam.
 
 #[generalConfig]
-#outputDir=../Output_utr/Siliconwafer/Siliconwafer_1mm
+#outputDir=../Output_utr/Siliconwafer/Siliconwafer_0.2mm
 #niceness=19
 #threads=200
 #ensureTerminalMultiplexer=True
 
 
 #[environmentVariables]
-#filenamePrefix=silicon_1mm_
+#filenamePrefix=silicon_0.2mm_
 #filenameSuffix=
 #filenameTemplate={filenamePrefix}{loopVar}_MeV_
 #setterCmd=/gps/ene/mono {loopVar} MeV
@@ -28,7 +28,7 @@
 #EVENT_EDEP=ON
 #EVENT_ID=OFF
 #EVENT_PARTICLE=ON
-#PRINT_PROGRESS=2000000
+#PRINT_PROGRESS=20000000
 #EM_LIVERMORE_POLARIZED=OFF
 #EM_LIVERMORE=OFF
 #EM_PENELOPE=ON
@@ -36,7 +36,7 @@
 
 #[getHistogramArgs]
 #quantity=edep
-#maxenergy=5
+#maxenergy=5   # in MeV
 #maxid=0       # max ID of sensitive volumes
 
 #[histogramToTxtArgs]
@@ -47,7 +47,7 @@
 
 # Never simulate more than 2^32= 4294967296 particles using /run/beamOn, since this causes an overflow in the random number seed, giving you in principle the same results over and over again.
 # In such cases execute the same simulation multiple times instead.
-/control/alias beamOnStatistics 20000000    #2000000000
+/control/alias beamOnStatistics 200000000  #2000000000
 
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
@@ -61,13 +61,10 @@
 
 # Set up a beam:
 /run/initialize
-/gps/particle gamma
+/gps/particle e-
 /gps/pos/type Point  #Beam
-#/gps/pos/shape Circle
-#/gps/pos/radius 0.5 mm
 /gps/pos/centre 0. 0. -5 mm
 /gps/direction 0. 0. 1.
-#/gps/polarization 1. 0. 0.
 /gps/ene/type Mono
 
 # Run the generic macro in a loop
@@ -75,5 +72,5 @@
 # for each Syntax: /control/foreach MacroFile Variable ValueList
 # To use the variable in the macro to be looped refer to it wrapped in {} as {Variable} in the macro
 # Remember that due to the numerical inaccuracies when adding float numbers, a loop might generate a run more or less than expected!
-/control/foreach macros/examples/genericLoopable.mac loopVar 1. 2. 
+/control/foreach macros/examples/genericLoopable.mac loopVar 0.125 0.200 0.260
 #/control/loop macros/examples/genericLoopable.mac loopVar 10. 15. 2.5

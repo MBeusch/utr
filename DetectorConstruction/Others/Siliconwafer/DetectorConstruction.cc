@@ -81,8 +81,8 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   /***************** Target Properties *****************/
 
   const G4String detector_material_name = "G4_Si";   // <------ adjust material
-  const double detector_thickness = 1. * mm;
-  const double detector_edgelength = 5. * mm;
+  const double detector_thickness = 0.2 * mm;
+  const double detector_edgelength = 10. * mm;
 
   /***************** Materials *****************/
 
@@ -95,7 +95,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
 
   const double world_x = 2. * detector_edgelength;
   const double world_y = 2. * detector_edgelength;
-  const double world_z = 10. * detector_thickness ;
+  const double world_z = 10. * mm;
 
   G4Box *world_solid = new G4Box("world_solid", world_x, world_y, world_z);
   G4LogicalVolume *world_logical = new G4LogicalVolume(world_solid, vacuum, "world_logical");
