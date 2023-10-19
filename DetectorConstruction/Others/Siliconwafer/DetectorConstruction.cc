@@ -93,18 +93,18 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
 
   /***************** World Volume *****************/
 
-  const double world_x = 2. * detector_edgelength;
-  const double world_y = 2. * detector_edgelength;
-  const double world_z = 10. * mm;
+  const double world_x_half = 2. * detector_edgelength;
+  const double world_y_half = 2. * detector_edgelength;
+  const double world_z_half = 10. * mm;
 
-  G4Box *world_solid = new G4Box("world_solid", world_x, world_y, world_z);
+  G4Box *world_solid = new G4Box("world_solid", world_x_half, world_y_half, world_z_half);
   G4LogicalVolume *world_logical = new G4LogicalVolume(world_solid, vacuum, "world_logical");
   G4VPhysicalVolume *world_physical = new G4PVPlacement(0, G4ThreeVector(), world_logical, "world", 0, false, 0);
 
   
   /******************** Detector ******************/
 
-	G4Box *Detector_solid = new G4Box("Detector_solid", detector_edgelength, detector_edgelength, detector_thickness);
+	G4Box *Detector_solid = new G4Box("Detector_solid", 0.5 * detector_edgelength, 0.5 * detector_edgelength, 0.5 * detector_thickness);
 	G4LogicalVolume *Detector_logical = new G4LogicalVolume(Detector_solid, detector_material, "Detector_logical", 0, 0, 0);
 
 	//Visualisierung (Farbe)
