@@ -138,8 +138,12 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
 
 #ifdef USE_TARGETS
   auto rotation = new G4RotationMatrix();
+/*
 #ifdef ROTATE_TARGET
   rotation->rotateY(180. * deg);
+*/
+#ifdef ROTATE_TARGET
+  rotation->rotateY(5. * deg);
 #endif
   Sn112116_Target Sn112116_Target(World_Logical);
   Sn112116_Target.Construct(rotation, G4ThreeVector(0., 0., 0.));

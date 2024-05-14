@@ -110,7 +110,7 @@ void Sn112116_Target::Construct(G4RotationMatrix *rotation, G4ThreeVector global
       Sn112116_Container_Solid, PVC, "Sn112116_Container_Logical");
   Sn112116_Container_Logical->SetVisAttributes(G4Color::Grey());
 
-  new G4PVPlacement(rotation, G4ThreeVector(), Sn112116_Container_Logical,
+  new G4PVPlacement(0, G4ThreeVector(), Sn112116_Container_Logical,
                     "Sn112116_Container", Sn112116_Mother_Logical, false, 0);
 
   // Target Container Caps

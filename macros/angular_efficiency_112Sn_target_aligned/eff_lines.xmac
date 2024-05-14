@@ -1,0 +1,62 @@
+#!/usr/bin/env utrwrapper.py
+
+#[generalConfig]
+#outputDir=/home/mbeuschlein/utr/output/isotrope_efficiency/efficiency_lines_112Sn   ## <---
+#niceness=19
+#threads=50
+
+#[environmentVariables]
+#filenamePrefix=Eff_
+#filenameSuffix=_MeV
+#filenameTemplate={filenamePrefix}{loopVar}{filenameSuffix}
+#setterCmd=/gps/ene/mono {loopVar} MeV
+
+#[utrBuildOptions]
+#CAMPAIGN=DHIPS_2019
+#DETECTOR_CONSTRUCTION=Sn112   ## <---
+#GENERATOR_ANGCORR=OFF
+#GENERATOR_ANGDIST=OFF
+#USE_TARGETS=OFF
+#USE_ZERODEGREE=OFF
+#ZERODEGREE_OFFSET=0.0
+
+#[getHistogramArgs]
+#maxenergy=10
+#maxid=3
+
+#[histogramToTxtArgs]
+#begin=1
+#end=3
+
+## The required magic string signals the end of the configuration header
+#START_OF_MACRO
+
+/control/alias beamOnStatistics 200000000
+#/control/alias beamOnStatistics 50000
+
+# Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
+/control/getEnv filenamePrefix
+/control/getEnv filenameSuffix
+
+# Disable appendage of additional IDs to filenames (as unique filenames containing the simulated energy will be used for each beamOn)
+/utr/setUseFilenameID False
+# Set the number of required decimal places for padding of loopVar (no padding here as loopVar only takes integer values)
+/control/alias appendZerosToVarPadding 2
+
+/run/initialize
+
+/gps/particle gamma
+/gps/pos/type Point
+/gps/pos/centre 0. 0. 0. mm
+/gps/ang/type iso
+/gps/ene/type Mono
+#/gps/direction 1 0 0
+
+
+/control/foreach macros/examples/genericLoopable.mac loopVar 1.1897 1.25668 2.21201
+
+## 0.5110 0.733514 0.787743 0.84677 0.977372 1.037843 1.140368 1.175101 1.3354 1.360212 1.442746 1.462322 1.771357 1.810757 1.963741 2.015215 2.034791 2.113135 2.212944 2.276131 2.5985 3.009645 3.202029 3.253503 3.273079 3.451232 3.54805 1.25668 1.293558 1.764491
+
+
+
+

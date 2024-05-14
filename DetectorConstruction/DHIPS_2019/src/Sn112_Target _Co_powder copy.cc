@@ -31,7 +31,6 @@ along with utr.  If not, see <http://www.gnu.org/licenses/>.
  *
  * The materials were filled into a target container made of polyvinyl-chloride.
  *
- * [1] M. Schilling, MSc thesis, TU Darmstadt (2016)
  */
 
 #include <sstream>
@@ -97,6 +96,22 @@ void Sn112_Target_Co_powder::Construct(G4ThreeVector global_coordinates) {
   sn112_element->AddIsotope(sn112, 100. * perCent);
   G4Material *sn112_material = new G4Material("Sn112_material", sn112_III_density, 1);
   sn112_material->AddElement(sn112_element, 1);
+
+
+
+
+  // Mother volume consisting of Air
+  G4Tubs *Sn112_Mother_Solid =
+      new G4Tubs("Sn112116_Mother_Solid", 0, container_outer_radius,
+                 (container_inner_length + 2* container_lid_thickness) * 0.5, 0. * deg, 360. * deg);
+  G4LogicalVolume *Sn112_Mother_Logical = new G4LogicalVolume(
+      Sn112_Mother_Solid, nist->FindOrBuildMaterial("G4_AIR"), "Sn112_Mother_Logical");
+  Sn112_Mother_Logical->SetVisAttributes(G4VisAttributes::GetInvisible());
+  new G4PVPlacement(0., global_coordinates + G4ThreeVector(), Sn112_Mother_Logical,
+                    "Sn112_Target_Co_powder", World_Logical, false, 0);
+
+
+
 
   // Construct target container
   // Container wall
