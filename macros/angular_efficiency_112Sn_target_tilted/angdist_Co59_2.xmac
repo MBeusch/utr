@@ -1,21 +1,21 @@
 #!/usr/bin/env utrwrapper.py
 
 #[generalConfig]
-#outputDir=/home/mbeuschlein/Output_utr/Angdist/PrecisionTests/Exp_Sn116_target_aligned/angdist_Sn116_2
+#outputDir=/home/mbeuschlein/Output_utr/Angdist/PrecisionTests/Exp_Sn112_target_tilted_355deg/angdist_Co59_2   ## <---
 #niceness=19
 #threads=80
 
 #[environmentVariables]
-#filenamePrefix=angdist_Sn116_2
+#filenamePrefix=angdist_Co59_2    ## <---
 #filenameSuffix=
 #filenameTemplate={filenamePrefix}
 
 #[utrBuildOptions]
 #CAMPAIGN=DHIPS_2019
-#DETECTOR_CONSTRUCTION=Sn112116
+#DETECTOR_CONSTRUCTION=Sn112
 #GENERATOR_ANGCORR=OFF
 #GENERATOR_ANGDIST=ON
-#USE_TARGETS=ON
+#USE_TARGETS=ON                    ## <--- OFF for isotrope simulation?
 #USE_ZERODEGREE=OFF
 #ZERODEGREE_OFFSET=0.0
 #ROTATE_TARGET=OFF
@@ -35,8 +35,8 @@
 ## The required magic string signals the end of the configuration header
 #START_OF_MACRO
 
-/control/alias beamOnStatistics 100000000
-#/control/alias beamOnStatistics 50000
+/control/alias beamOnStatistics 100000000   ## angdist
+#/control/alias beamOnStatistics 500000     ## isotrope
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
 /control/getEnv filenamePrefix
@@ -50,26 +50,26 @@
 /run/initialize
 
 /ang/particle gamma
-/ang/energy 1.293558 MeV
+/ang/energy 1.1897 MeV         ## <----
 
-/ang/nstates 3
-/ang/state1 0.
-/ang/state2 2.
-/ang/state3 0.
+/ang/nstates 3                 ## <---
+/ang/state1 -3.5
+/ang/state2 -4.5
+/ang/state3 -3.5
 /ang/polarized false
 
-/ang/delta12 0.
-/ang/delta23 0.
+/ang/delta12 -0.21             ## <---- sign convention KSW?
+/ang/delta23 0.21
 
 /ang/sourceX 0. mm
 /ang/sourceY 0. mm
-/ang/sourceZ -6.89107 mm
+/ang/sourceZ 4.28892 mm        ## <----
 
-/ang/sourceDX 10.0000 mm
-/ang/sourceDY 10.0000 mm
-/ang/sourceDZ 4.21787 mm
+/ang/sourceDX 20.0000 mm
+/ang/sourceDY 20.0000 mm
+/ang/sourceDZ 2.42232 mm        ## <----
 
-/ang/sourcePV Sn116_2
+/ang/sourcePV Co59_2            ## <----
 
 
 /control/getEnv filenameTemplate

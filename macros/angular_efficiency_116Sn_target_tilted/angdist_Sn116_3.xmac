@@ -1,12 +1,12 @@
 #!/usr/bin/env utrwrapper.py
 
 #[generalConfig]
-#outputDir=/home/mbeuschlein/Output_utr/Angdist/PrecisionTests/Exp_Sn116_target_tilted_5deg/angdist_Sn112_2
+#outputDir=/home/mbeuschlein/Output_utr/Angdist/PrecisionTests/Exp_Sn116_target_tilted_355deg/angdist_Sn116_3
 #niceness=19
 #threads=80
 
 #[environmentVariables]
-#filenamePrefix=angdist_Sn112_2
+#filenamePrefix=angdist_Sn116_3
 #filenameSuffix=
 #filenameTemplate={filenamePrefix}
 
@@ -50,7 +50,7 @@
 /run/initialize
 
 /ang/particle gamma
-/ang/energy 1.25668 MeV
+/ang/energy 1.293558 MeV
 
 /ang/nstates 3
 /ang/state1 0.
@@ -63,13 +63,13 @@
 
 /ang/sourceX 0. mm
 /ang/sourceY 0. mm
-/ang/sourceZ -2.28433 mm
+/ang/sourceZ 2.31320 mm
 
 /ang/sourceDX 10.0000 mm
 /ang/sourceDY 10.0000 mm
-/ang/sourceDZ 4.21322 mm
+/ang/sourceDZ 4.19945 mm
 
-/ang/sourcePV Sn112_2
+/ang/sourcePV Sn116_3
 
 
 /control/getEnv filenameTemplate

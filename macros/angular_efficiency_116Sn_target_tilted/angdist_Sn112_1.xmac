@@ -1,12 +1,12 @@
 #!/usr/bin/env utrwrapper.py
 
 #[generalConfig]
-#outputDir=/home/mbeuschlein/Output_utr/Angdist/PrecisionTests/Exp_Sn116_target_aligned/angdist_Sn112_2
+#outputDir=/home/mbeuschlein/Output_utr/Angdist/PrecisionTests/Exp_Sn116_target_tilted_355deg/angdist_Sn112_1
 #niceness=19
 #threads=80
 
 #[environmentVariables]
-#filenamePrefix=angdist_Sn112_2
+#filenamePrefix=angdist_Sn112_1
 #filenameSuffix=
 #filenameTemplate={filenamePrefix}
 
@@ -36,7 +36,7 @@
 #START_OF_MACRO
 
 /control/alias beamOnStatistics 100000000
-#/control/alias beamOnStatistics 50000
+#/control/alias beamOnStatistics 500000
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
 /control/getEnv filenamePrefix
@@ -63,13 +63,13 @@
 
 /ang/sourceX 0. mm
 /ang/sourceY 0. mm
-/ang/sourceZ -2.28433 mm
+/ang/sourceZ 6.90206 mm
 
 /ang/sourceDX 10.0000 mm
 /ang/sourceDY 10.0000 mm
-/ang/sourceDZ 4.21322 mm
+/ang/sourceDZ 4.19589 mm
 
-/ang/sourcePV Sn112_2
+/ang/sourcePV Sn112_1
 
 
 /control/getEnv filenameTemplate

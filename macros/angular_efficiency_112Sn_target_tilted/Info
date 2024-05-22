@@ -1,0 +1,3 @@
+The orientation of the target can be changed in the file: DetectorConstruction/DHIPS_2019/src/Sn112_Target _Co_powder.cc.
+When using an aligned target, the rotation angle must be set to 0°!
+The directory of the simulation output is outside UTR (../Output_utr/Angdist/).

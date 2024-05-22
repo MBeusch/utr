@@ -144,6 +144,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGePol, 10. * mm, 10. * mm);
 
 #ifdef USE_TARGETS
+// Define rotation angle in file DetectorConstruction/DHIPS_2019/src/Sn112_Target _Co_powder.cc
   Sn112_Target_Co_powder Sn112_Target_Co_powder(World_Logical);
   Sn112_Target_Co_powder.Construct(G4ThreeVector(0., 0., 0.));
 #endif

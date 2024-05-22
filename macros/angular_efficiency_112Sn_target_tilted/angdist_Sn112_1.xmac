@@ -1,7 +1,7 @@
 #!/usr/bin/env utrwrapper.py
 
 #[generalConfig]
-#outputDir=/home/mbeuschlein/Output_utr/Angdist/PrecisionTests/Exp_Sn112_target_aligned/angdist_Sn112_1    ## <---
+#outputDir=/home/mbeuschlein/Output_utr/Angdist/PrecisionTests/Exp_Sn112_target_tilted_355deg/angdist_Sn112_1    ## <---
 #niceness=19
 #threads=80
 

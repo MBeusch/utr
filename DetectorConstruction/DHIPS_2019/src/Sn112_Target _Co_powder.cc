@@ -86,6 +86,7 @@ void Sn112_Target_Co_powder::Construct(G4ThreeVector global_coordinates) {
 
   // Natural cobalt
   // G4Material *nat_Co = nist->FindOrBuildMaterial("G4_Co");
+  // Cobalt with individual powder density
   auto *Co_powder = new G4Material("Co_powder", co59_I_density, nist->FindOrBuildMaterial("G4_Co"));
 
   // Natural aluminium
@@ -98,23 +99,40 @@ void Sn112_Target_Co_powder::Construct(G4ThreeVector global_coordinates) {
   G4Material *sn112_material = new G4Material("Sn112_material", sn112_III_density, 1);
   sn112_material->AddElement(sn112_element, 1);
 
+
+  // Define rotation angle of the target
+  auto rotation = new G4RotationMatrix();
+  rotation->rotateY(355. * deg);
+
+  // Mother volume consisting of Air
+  G4Tubs *Sn112_Mother_Solid =
+      new G4Tubs("Sn112_Mother_Solid", 0, container_outer_radius,
+                 (container_inner_length + 2* container_lid_thickness) * 0.5, 0. * deg, 360. * deg);
+  G4LogicalVolume *Sn112_Mother_Logical = new G4LogicalVolume(
+      Sn112_Mother_Solid, nist->FindOrBuildMaterial("G4_AIR"), "Sn112_Mother_Logical");
+  Sn112_Mother_Logical->SetVisAttributes(G4VisAttributes::GetInvisible());
+  new G4PVPlacement(rotation, global_coordinates + G4ThreeVector(), Sn112_Mother_Logical,
+                    "Sn112_Target_Co_powder", World_Logical, false, 0);
+ 
+
+
   // Construct target container
   // Container wall
   G4Tubs *container_wall_solid = new G4Tubs("container_wall_solid", container_inner_radius, container_outer_radius, container_inner_length * 0.5, 0., twopi);
   G4LogicalVolume *container_wall_logical = new G4LogicalVolume(container_wall_solid, nist->FindOrBuildMaterial("G4_POLYVINYL_CHLORIDE"), "container_wall_logical");
   container_wall_logical->SetVisAttributes(G4Color::White());
-  new G4PVPlacement(0, global_coordinates + G4ThreeVector(), container_wall_logical, "container_wall", World_Logical, false, 0);
+  new G4PVPlacement(0, global_coordinates + G4ThreeVector(), container_wall_logical, "container_wall", Sn112_Mother_Logical, false, 0);
 
   // Container bottom and top
   G4Tubs *container_lid_solid = new G4Tubs("container_lid_solid", 0., container_outer_radius, container_lid_thickness * 0.5, 0., twopi);
 
   G4LogicalVolume *container_bottom_logical = new G4LogicalVolume(container_lid_solid, nist->FindOrBuildMaterial("G4_POLYVINYL_CHLORIDE"), "container_bottom_logical");
   container_bottom_logical->SetVisAttributes(G4Color::Grey());
-  new G4PVPlacement(0, global_coordinates + G4ThreeVector(0., 0., -0.5 * container_lid_thickness - 0.5 * container_inner_length), container_bottom_logical, "container_bottom", World_Logical, false, 0);
+  new G4PVPlacement(0, global_coordinates + G4ThreeVector(0., 0., -0.5 * container_lid_thickness - 0.5 * container_inner_length), container_bottom_logical, "container_bottom", Sn112_Mother_Logical, false, 0);
 
   G4LogicalVolume *container_top_logical = new G4LogicalVolume(container_lid_solid, nist->FindOrBuildMaterial("G4_POLYVINYL_CHLORIDE"), "container_top_logical");
   container_top_logical->SetVisAttributes(G4Color::Grey());
-  new G4PVPlacement(0, global_coordinates + G4ThreeVector(0., 0., 0.5 * container_lid_thickness + 0.5 * container_inner_length), container_top_logical, "container_top", World_Logical, false, 0);
+  new G4PVPlacement(0, global_coordinates + G4ThreeVector(0., 0., 0.5 * container_lid_thickness + 0.5 * container_inner_length), container_top_logical, "container_top", Sn112_Mother_Logical, false, 0);
 
   // Construct targets in a loop
   vector<G4String> target_names = {"Co59_1", "Al27_1", "Sn112_1", "Al27_2", "Co59_2"};
@@ -142,7 +160,7 @@ void Sn112_Target_Co_powder::Construct(G4ThreeVector global_coordinates) {
 
     name << target_names[i];
     pos = G4ThreeVector(0., 0., -0.5 * container_inner_length + next_target_z + 0.5 * target_thicknesses[i]);
-    new G4PVPlacement(0, global_coordinates + pos, target_logicals[i], name.str(), World_Logical, false, 0);
+    new G4PVPlacement(0, global_coordinates + pos, target_logicals[i], name.str(), Sn112_Mother_Logical, false, 0);
     printf("> %s position   (source)  : ( %8.5f, %8.5f, %8.5f )\n", name.str().c_str(), pos.getX(), pos.getY(), pos.getZ());
     printf("> %s dimensions (sourceD) : ( %8.5f, %8.5f, %8.5f )\n", name.str().c_str(), 2. * container_inner_radius, 2. * container_inner_radius, target_thicknesses[i]);
     name.str("");
