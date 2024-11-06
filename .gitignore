@@ -54,3 +54,8 @@ output/*
 
 # VS Code directory
 .vscode
+
+# CAD files
+*.gdml
+*.stl
+*.step
