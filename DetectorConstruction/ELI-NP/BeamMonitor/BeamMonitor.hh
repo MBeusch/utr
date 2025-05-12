@@ -59,7 +59,7 @@ class BeamMonitor {
     //Define color and material of BeamMonitor
     G4NistManager *nist = G4NistManager::Instance();
     G4Material *lead = nist->FindOrBuildMaterial("G4_Pb");
-    G4Colour red(0., 0., 1.);
+    G4Colour blue(0., 0., 1.);
 
     World_Logical = world_Logical;
 
@@ -69,7 +69,7 @@ class BeamMonitor {
     //Path to gdml main file
     //gdmlFileName = "/nfs/ldas02/zh02/home/mbeuschlein/utr/DetectorConstruction/ELI-NP/BeamMonitor/BeamMonitor.gdml";
     //gdmlFileName = "/nfs/ldas02/zh02/home/mbeuschlein/utr/DetectorConstruction/ELI-NP/BeamMonitor/arm_bottom.gdml";
-    gdmlFileName = "/nfs/ldas02/zh02/home/mbeuschlein/utr/DetectorConstruction/ELI-NP/BeamMonitor/collimator.gdml";
+    gdmlFileName = "/nfs/ldas02/zh02/home/mbeuschlein/utr/DetectorConstruction/ELI-NP/BeamMonitor/collimator_merged.gdml";
 
 
     parser.Read(gdmlFileName);
@@ -78,8 +78,8 @@ class BeamMonitor {
     BeamMonitor_Logical = gdmlWorld->GetLogicalVolume();
     
     //Assign color and material of BeamMonitor
-    BeamMonitor_Logical->SetVisAttributes(new G4VisAttributes(red));
-    BeamMonitor_Logical->SetMaterial(lead);
+    BeamMonitor_Logical->SetVisAttributes(new G4VisAttributes(blue));
+    //BeamMonitor_Logical->SetMaterial(lead);
    
     rot = new G4RotationMatrix();
   }

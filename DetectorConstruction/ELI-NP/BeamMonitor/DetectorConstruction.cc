@@ -97,9 +97,9 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   
   /***************** World Volume *****************/
 
-  const double world_x =  1. *m; //HPGe_GEM20P470_props.dewar_outer_radius;
-  const double world_y =  1. *m; //HPGe_GEM20P470_props.dewar_outer_radius;
-  const double world_z =  1. *m; //2 * HPGe_GEM20P470_props.dewar_length + distance_source_detector;
+  const double world_x =  1. *m;
+  const double world_y =  1. *m; 
+  const double world_z =  1. *m; 
 
   G4Box *world_solid = new G4Box("world_solid", world_x, world_y, world_z);
   G4LogicalVolume *world_logical = new G4LogicalVolume(world_solid, air, "world_logical");
@@ -108,7 +108,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   /***************** BeamMonitor *********************************/
 
   BeamMonitor *beamMonitor = new BeamMonitor(world_logical);
-  beamMonitor->Put(0., 0., 128.5, 180. *deg, 0., 0.);
+  beamMonitor->Put(0., 0., 0., 180. *deg, 0., 0.);
 
 
   return world_physical;
