@@ -23,10 +23,10 @@ along with utr.  If not, see <http://www.gnu.org/licenses/>.
 #include "G4LogicalVolume.hh"
 #include "G4SystemOfUnits.hh"
 
-class Sn112_Target_Co_powder {
+class Pu242_Target {
   public:
-  Sn112_Target_Co_powder(G4LogicalVolume *World_Log);
-  ~Sn112_Target_Co_powder() = default;
+  Pu242_Target(G4LogicalVolume *World_Log);
+  ~Pu242_Target() = default;
 
   void Construct(G4ThreeVector global_coordinates);
   void Set_Containing_Volume(G4LogicalVolume *World_Log) { World_Logical = World_Log; };
@@ -35,9 +35,5 @@ class Sn112_Target_Co_powder {
   G4LogicalVolume *World_Logical;
 
   G4double container_inner_radius;
-  G4double co59_I_thickness;
-  G4double al27_II_thickness;
-  G4double sn112_III_thickness;
-  G4double al27_IV_thickness;
-  G4double co59_V_thickness;
+  G4double co_thickness;
 };
