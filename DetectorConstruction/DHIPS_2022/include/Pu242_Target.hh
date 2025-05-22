@@ -35,5 +35,5 @@ class Pu242_Target {
   G4LogicalVolume *World_Logical;
 
   G4double container_inner_radius;
-  G4double co_thickness;
+  G4double puo2_thickness;
 };

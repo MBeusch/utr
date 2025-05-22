@@ -50,7 +50,7 @@ Materials *materials = Materials::Instance();
 #include "Detectors.hh"
 #include "LeadCastle.hh"
 #include "RadiatorTarget.hh"
-#include "Pu242_Target.hh"
+#include "Al27_Reference.hh"
 
 // Geometry
 #include "G4Box.hh"
@@ -135,8 +135,8 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGePol, 10. * mm, 10. * mm);
 
 #ifdef USE_TARGETS
-  Pu242_Target Pu242_Target(World_Logical);
-  Pu242_Target.Construct(G4ThreeVector(0., 0., 0.));
+  Al27_Reference Al27_Reference(World_Logical);
+  Al27_Reference.Construct(G4ThreeVector(0., 0., 0.));
 #endif
 
   print_info();
@@ -152,12 +152,12 @@ void DetectorConstruction::ConstructSDandField() {
 
   EnergyDepositionSD *HPGe2SD = new EnergyDepositionSD("HPGe2", "HPGe2");
   G4SDManager::GetSDMpointer()->AddNewDetector(HPGe2SD);
-  HPGe2SD->SetDetectorID(2);
+  HPGe2SD->SetDetectorID(2);  // detector ID
   SetSensitiveDetector("HPGe2", HPGe2SD, true);
 
   EnergyDepositionSD *HPGePolSD = new EnergyDepositionSD("HPGePol", "HPGePol");
   G4SDManager::GetSDMpointer()->AddNewDetector(HPGePolSD);
-  HPGePolSD->SetDetectorID(3);
+  HPGePolSD->SetDetectorID(3); // detector ID
   SetSensitiveDetector("HPGePol", HPGePolSD, true);
 }
 
