@@ -19,7 +19,7 @@ along with utr.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 /*
- * Setup of the 242Pu NRF experiment from the 2022 DHIPS campaign
+ * Setup of the Pu242 NRF experiment from the 2022 DHIPS campaign
  * The purpose of this experiment was to measure the low-energy dipole response.
  */
 
@@ -50,7 +50,7 @@ Materials *materials = Materials::Instance();
 #include "Detectors.hh"
 #include "LeadCastle.hh"
 #include "RadiatorTarget.hh"
-#include "Pu242_Target_full.hh"
+#include "Pu242_innerBox.hh"
 
 // Geometry
 #include "G4Box.hh"
@@ -135,8 +135,8 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGePol, 10. * mm, 10. * mm);
 
 #ifdef USE_TARGETS
-  Pu242_Target_full Pu242_Target_full(World_Logical);
-  Pu242_Target_full.Construct(G4ThreeVector(0., 0., 0.));
+  Pu242_innerBox Pu242_innerBox(World_Logical);
+  Pu242_innerBox.Construct(G4ThreeVector(0., 0., 0.));
 #endif
 
   print_info();

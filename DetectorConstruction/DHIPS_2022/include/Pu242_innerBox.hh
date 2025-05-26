@@ -23,10 +23,10 @@ along with utr.  If not, see <http://www.gnu.org/licenses/>.
 #include "G4LogicalVolume.hh"
 #include "G4SystemOfUnits.hh"
 
-class Pu242_Target {
+class Pu242_innerBox {
   public:
-  Pu242_Target(G4LogicalVolume *World_Log);
-  ~Pu242_Target() = default;
+  Pu242_innerBox(G4LogicalVolume *World_Log);
+  ~Pu242_innerBox() = default;
 
   void Construct(G4ThreeVector global_coordinates);
   void Set_Containing_Volume(G4LogicalVolume *World_Log) { World_Logical = World_Log; };
