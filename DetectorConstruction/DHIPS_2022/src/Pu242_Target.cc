@@ -41,13 +41,13 @@ void Pu242_Target::Construct(G4ThreeVector global_coordinates) {
   // === Container dimensions and densities ===
   G4double container_inner_radius = 0.5 * 12. * mm;
   G4double container_outer_radius = 0.5 * 16. * mm;
-  G4double container_bottom_thickness = 3. * mm;
+  G4double container_bottom_thickness = 1.5 * mm;
   G4double container_lid_thickness = 6. * mm;
   G4double container_inner_length = 13 * mm;
-  G4double offset_targetCenter_containerBottom = 3 * mm;
   G4double puo2_thickness = 6 * mm;  // ESTIMATED
   G4double outer_container_lid_thickness = 4 *mm;
   G4double al_radius = 0.5 * cm;
+  G4double offset_targetCenter_containerBottom = 3 * mm;
 
   // === G4 materials ===
   G4NistManager *nist = G4NistManager::Instance();
