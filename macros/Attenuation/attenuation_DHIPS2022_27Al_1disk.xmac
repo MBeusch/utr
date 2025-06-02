@@ -5,16 +5,17 @@
 
 ## This macro simulates the attenuation effect of a disk with a given material (see DETECTOR_CONSTRUCTION/DHIPS_2019/Attenuation).
 
+## Before starting the simulation, make sure, that the right 27Al disk is used!
 
 #[generalConfig]
-#outputDir=../Output_utr/Attenuation/242Pu_experiment/attenuation_DHIPS2022_242Pu_target_full
+#outputDir=../Output_utr/Attenuation/242Pu_experiment/Statistics_2e8/attenuation_DHIPS2022_27Al_1disk_full
 #niceness=19
 #threads=100
 #ensureTerminalMultiplexer=True
 
 
 #[environmentVariables]
-#filenamePrefix=242Pu_attenuation_
+#filenamePrefix=27Al_1disk_attenuation_
 #filenameSuffix=
 #filenameTemplate={filenamePrefix}{loopVar}_MeV_sim_
 #setterCmd=/ang/energy {loopVar} MeV
@@ -48,7 +49,7 @@
 
 # Never simulate more than 2^32= 4294967296 particles using /run/beamOn, since this causes an overflow in the random number seed, giving you in principle the same results over and over again.
 # In such cases execute the same simulation multiple times instead.
-/control/alias beamOnStatistics 20000000    #2000000000
+/control/alias beamOnStatistics 200000000    #2000000000
 
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
@@ -79,13 +80,13 @@
 
 /ang/sourceX 0. mm
 /ang/sourceY 0. mm
-/ang/sourceZ -3. mm        ## <----
+/ang/sourceZ -14. mm        ## <----
 
 /ang/sourceDX 20. mm
 /ang/sourceDY 20. mm
 /ang/sourceDZ 20. mm        
 
-/ang/sourcePV PuO2            ## <----
+/ang/sourcePV Al            ## <----
 
 
 # Run the generic macro in a loop
@@ -94,5 +95,5 @@
 # To use the variable in the macro to be looped refer to it wrapped in {} as {Variable} in the macro
 # Remember that due to the numerical inaccuracies when adding float numbers, a loop might generate a run more or less than expected!
 
-/control/foreach macros/examples/genericLoopable.mac loopVar 0.735 0.780 2.061 2.171 2.202 2.216 2.223 2.246 2.281 2.236 2.390 2.469 2.514 2.529 2.573 2.699 2.749 2.793 
+/control/foreach macros/examples/genericLoopable.mac loopVar 2.212 2.982
 #/control/loop macros/examples/genericLoopable.mac loopVar 10. 15. 2.5

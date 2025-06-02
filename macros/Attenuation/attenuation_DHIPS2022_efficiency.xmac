@@ -7,24 +7,24 @@
 
 
 #[generalConfig]
-#outputDir=../Output_utr/Attenuation/242Pu_experiment/242Pu_pointsource
+#outputDir=../Output_utr/Attenuation/242Pu_experiment/Statistics_5e8/attenuation_DHIPS2022_efficiency_
 #niceness=19
 #threads=100
 #ensureTerminalMultiplexer=True
 
 
 #[environmentVariables]
-#filenamePrefix=242Pu_efficiency_
+#filenamePrefix=source_efficiency_
 #filenameSuffix=
 #filenameTemplate={filenamePrefix}{loopVar}_MeV_sim_
 #setterCmd=/gps/ene/mono {loopVar} MeV
 
 #[utrBuildOptions]
 #CAMPAIGN=DHIPS_2022
-#DETECTOR_CONSTRUCTION=242Pu_innerBox
+#DETECTOR_CONSTRUCTION=242Pu_outerBox
 #GENERATOR_ANGCORR=OFF
 #GENERATOR_ANGDIST=OFF
-#USE_TARGETS=OFF  
+#USE_TARGETS=ON  
 #EVENT_EKIN=OFF
 #EVENT_EDEP=ON
 #EVENT_ID=OFF
@@ -48,7 +48,7 @@
 
 # Never simulate more than 2^32= 4294967296 particles using /run/beamOn, since this causes an overflow in the random number seed, giving you in principle the same results over and over again.
 # In such cases execute the same simulation multiple times instead.
-/control/alias beamOnStatistics 20000000    #2000000000
+/control/alias beamOnStatistics 500000000    #2000000000
 
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
@@ -65,8 +65,8 @@
 
 /run/initialize
 /gps/particle gamma
-/gps/pos/type Point           # <-- for source simulation
-/gps/pos/centre 0. 0. -3. mm  # <-- for source simulation (= offset_targetCenter_containerBottom in 242Pu_Target.cc)
+/gps/pos/type Point           
+/gps/pos/centre 0. 0. 0. mm   
 /gps/ang/type iso
 /gps/ene/type Mono
 
@@ -77,5 +77,5 @@
 # To use the variable in the macro to be looped refer to it wrapped in {} as {Variable} in the macro
 # Remember that due to the numerical inaccuracies when adding float numbers, a loop might generate a run more or less than expected!
 
-/control/foreach macros/examples/genericLoopable.mac loopVar 0.735 0.780 2.061 2.171 2.202 2.216 2.223 2.246 2.281 2.236 2.390 2.469 2.514 2.529 2.573 2.699 2.749 2.793 
+/control/foreach macros/examples/genericLoopable.mac loopVar 0.60 0.70 0.80 0.90 1.00 1.20 1.40 1.60 1.80 2.00 2.10 2.20 2.25 2.30 2.35 2.40 2.50 2.60 2.70 2.80 2.90 3.00 
 #/control/loop macros/examples/genericLoopable.mac loopVar 10. 15. 2.5

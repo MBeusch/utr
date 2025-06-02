@@ -131,7 +131,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   Detectors.ConstructDetectorBGO(G4ThreeVector(), HPGePol, BGOPol);
   LeadCastle.Construct(G4ThreeVector(), &BGO1, &BGO2, &BGOPol);
   // Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGe1, 10. * mm, 10. * mm);
-  Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGe2, 10. * mm, 5. * mm);
+  Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGe2, 10. * mm, 5. * mm);      // G4double CuLength, G4double PbLength
   Detectors.ConstructDetectorFilter(G4ThreeVector(), HPGePol, 10. * mm, 10. * mm);
 
 #ifdef USE_TARGETS

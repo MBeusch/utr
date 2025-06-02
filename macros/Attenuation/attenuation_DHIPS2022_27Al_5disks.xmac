@@ -5,16 +5,17 @@
 
 ## This macro simulates the attenuation effect of a disk with a given material (see DETECTOR_CONSTRUCTION/DHIPS_2019/Attenuation).
 
+## Before starting the simulation, make sure, that the right 27Al disk is used!
 
 #[generalConfig]
-#outputDir=../Output_utr/Attenuation/242Pu_experiment/attenuation_DHIPS2022_27Al_target_full
+#outputDir=../Output_utr/Attenuation/242Pu_experiment/Statistics_2e8/attenuation_DHIPS2022_27Al_5disks_full
 #niceness=19
 #threads=100
 #ensureTerminalMultiplexer=True
 
 
 #[environmentVariables]
-#filenamePrefix=27Al_attenuation_
+#filenamePrefix=27Al_5disks_attenuation_
 #filenameSuffix=
 #filenameTemplate={filenamePrefix}{loopVar}_MeV_sim_
 #setterCmd=/ang/energy {loopVar} MeV
@@ -48,7 +49,7 @@
 
 # Never simulate more than 2^32= 4294967296 particles using /run/beamOn, since this causes an overflow in the random number seed, giving you in principle the same results over and over again.
 # In such cases execute the same simulation multiple times instead.
-/control/alias beamOnStatistics 20000000    #2000000000
+/control/alias beamOnStatistics 200000000    #2000000000
 
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases

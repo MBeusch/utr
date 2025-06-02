@@ -77,8 +77,8 @@ void Detectors::ConstructDetectorFilter(G4ThreeVector global_coordinates, Detect
   G4double Cu_dist = -det_info.position.distance + 0.5 * CuLength;
   G4double Pb_dist = -det_info.position.distance + 0.5 * PbLength + CuLength;
 
-  ConstructDetectorFilter(global_coordinates, det_info, CuLength, "Cu", Cu_dist, G4Color::Brown());
-  ConstructDetectorFilter(global_coordinates, det_info, PbLength, "Pb", Pb_dist, G4Color::Grey());
+  ConstructDetectorFilter(global_coordinates, det_info, CuLength, "Cu", Cu_dist, G4Color(1.0, 0.5, 0.0));
+  ConstructDetectorFilter(global_coordinates, det_info, PbLength, "Pb", Pb_dist, G4Color::Black());
 }
 
 void Detectors::ConstructDetectorFilter(G4ThreeVector global_coordinates, DetectorInfo &det_info, G4double length, G4String material, G4double dist, G4Color color) {
