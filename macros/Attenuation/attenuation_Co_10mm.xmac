@@ -7,7 +7,7 @@
 
 
 #[generalConfig]
-#outputDir=../Output_utr/Attenuation/Attenuation_Co_10mm
+#outputDir=../Output_utr/Attenuation/deletePlease
 #niceness=19
 #threads=100
 #ensureTerminalMultiplexer=True
@@ -21,7 +21,7 @@
 
 #[utrBuildOptions]
 #CAMPAIGN=Others
-#DETECTOR_CONSTRUCTION=Attenuation_Co_10mm
+#DETECTOR_CONSTRUCTION=Attenuation_Al_test
 #GENERATOR_ANGCORR=OFF
 #GENERATOR_ANGDIST=OFF
 #EVENT_EKIN=ON

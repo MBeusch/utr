@@ -54,12 +54,17 @@ void Pu242_Target_full::Construct(G4ThreeVector global_coordinates) {
   G4double rainpipe_length = 10 * cm;
 
   // Al target dimensions
-  G4double al_radius = 0.5 * cm;
+  
+  // Al target dimensions
   G4double al_mass1 = 0.1176 * g;
   G4double al_mass5 = 0.4735 * g;
+
+  // Choose Al thickness via mass:
+  G4double al_mass = al_mass5;            // <--- CHANGE here: al_mass5 <-> al_mass1
+  
+  G4double al_radius = 0.5 * cm;
   G4double al_density = 2.699 * g/cm3;
-  G4double al_thickness1 = al_mass1/(pi * al_radius * al_radius * al_density);
-  G4double al_thickness5 = al_mass5 / (pi * al_radius * al_radius * al_density);
+  G4double al_thickness = al_mass / (pi * al_radius * al_radius * al_density);
   
   // Inner container dimensions (PuO2 container)
   G4double inner_ir = 0.5 * 12 * mm;
@@ -135,7 +140,7 @@ void Pu242_Target_full::Construct(G4ThreeVector global_coordinates) {
   // PuO2 target inside inner container
   G4Tubs* puo2_solid = new G4Tubs("PuO2Solid", 0, inner_ir, puo2_th*0.5, 0, twopi);
   G4LogicalVolume* puo2_log = new G4LogicalVolume(puo2_solid, PuO2, "PuO2Log");
-  puo2_log->SetVisAttributes(G4Color::Magenta());
+  puo2_log->SetVisAttributes(G4Color::Red());
   G4ThreeVector puo2_pos(0, 0,  0.5 * puo2_th - offsetZ);
   new G4PVPlacement(nullptr, global_coordinates + puo2_pos, puo2_log, "PuO2", World_Logical, false, 0);
 
@@ -208,10 +213,10 @@ void Pu242_Target_full::Construct(G4ThreeVector global_coordinates) {
   /* 27Al target ******************************************************************************************/
 
   // Al27 disk near lid of outer container
-  G4Tubs* al_solid = new G4Tubs("AlSolid", 0, al_radius, al_thickness5*0.5, 0, twopi);
+  G4Tubs* al_solid = new G4Tubs("AlSolid", 0, al_radius, al_thickness*0.5, 0, twopi);
   G4LogicalVolume* al_log = new G4LogicalVolume(al_solid, matAl, "AlLog");
   al_log->SetVisAttributes(G4Color::Blue());
-  G4ThreeVector al_pos(0, 0, outer_bottom_pos.z() - 0.5*outer_bottom_th - 0.5 * al_thickness5);   // <--- CHANGE here: al_thickness5 <-> al_thickness1
+  G4ThreeVector al_pos(0, 0, outer_bottom_pos.z() - 0.5*outer_bottom_th - 0.5 * al_thickness);  
   new G4PVPlacement(nullptr, global_coordinates + al_pos, al_log, "Al", World_Logical, false, 0);
 
 
