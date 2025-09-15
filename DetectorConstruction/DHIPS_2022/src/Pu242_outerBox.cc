@@ -56,7 +56,7 @@ void Pu242_outerBox::Construct(G4ThreeVector global_coordinates) {
   G4double al_mass1 = 0.1176 * g;
   G4double al_mass5 = 0.4735 * g;
   G4double al_density = 2.699 * g/cm3;
-  G4double al_thickness1 = al_mass1/(pi * al_radius * al_radius * al_density);
+  G4double al_thickness1 = al_mass1 / (pi * al_radius * al_radius * al_density);
   G4double al_thickness5 = al_mass5 / (pi * al_radius * al_radius * al_density);
   
   // Inner container dimensions (PuO2 container)
@@ -169,7 +169,7 @@ void Pu242_outerBox::Construct(G4ThreeVector global_coordinates) {
 
   // Steel pipe wall
   G4Tubs* steelpipe_wall_solid = new G4Tubs("PipeWall", steelpipe_ir, steelpipe_or, 0.5*steelpipe_length, 0, twopi);
-  G4LogicalVolume* steelpipe_wall_log = new G4LogicalVolume(steelpipe_wall_solid, peek, "PipeWallLog");
+  G4LogicalVolume* steelpipe_wall_log = new G4LogicalVolume(steelpipe_wall_solid, stainless316L, "PipeWallLog");
   steelpipe_wall_log->SetVisAttributes(G4Color::Gray());
   G4ThreeVector steelpipe_wall_pos(0, 0, 0);
   new G4PVPlacement(nullptr, global_coordinates + steelpipe_wall_pos, steelpipe_wall_log, "PipeWall", World_Logical, false, 0);

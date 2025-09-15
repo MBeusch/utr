@@ -8,38 +8,38 @@
 ## Before starting the simulation, make sure, that the right 27Al disk is used!
 
 #[generalConfig]
-#outputDir=../Output_utr/Attenuation/Attenuation_Al_disk/Set3/Al_5disks
+#outputDir=../Output_utr/Attenuation/Attenuation_Al_disk/Set3/PEEK_disk
 #niceness=19
 #threads=100
 #ensureTerminalMultiplexer=True
 
 
 #[environmentVariables]
-#filenamePrefix=attenuation_
+#filenamePrefix=efficiency_
 #filenameSuffix=
 #filenameTemplate={filenamePrefix}{loopVar}_MeV_sim_
-#setterCmd=/ang/energy {loopVar} MeV
+#setterCmd=/gps/ene/mono {loopVar} MeV
 
 #[utrBuildOptions]
 #CAMPAIGN=Others
 #DETECTOR_CONSTRUCTION=Attenuation_Al_disk
 #GENERATOR_ANGCORR=OFF
-#GENERATOR_ANGDIST=ON
-#USE_TARGETS=ON    
-#EVENT_EKIN=ON
-#EVENT_EDEP=OFF
+#GENERATOR_ANGDIST=OFF  
+#USE_TARGETS=ON  
+#EVENT_EKIN=ON         ## <---
+#EVENT_EDEP=OFF        ## <---
 #EVENT_ID=OFF
 #EVENT_PARTICLE=ON
 #PRINT_PROGRESS=2000000
 #EM_LIVERMORE_POLARIZED=OFF
-#EM_LIVERMORE=OFF
-#EM_PENELOPE=ON
+#EM_LIVERMORE=OFF      ## <---
+#EM_PENELOPE=ON        ## <---
 
 
 #[getHistogramArgs]
-#quantity=ekin
+#quantity=ekin         ## <---
 #maxenergy=4
-#maxid=1       # max ID of sensitive volumes
+#maxid=3       # max ID of sensitive volumes
 
 #[histogramToTxtArgs]
 #end=0         # Don't export sum hist to txt
@@ -49,7 +49,7 @@
 
 # Never simulate more than 2^32= 4294967296 particles using /run/beamOn, since this causes an overflow in the random number seed, giving you in principle the same results over and over again.
 # In such cases execute the same simulation multiple times instead.
-/control/alias beamOnStatistics 10000000    #2000000000
+/control/alias beamOnStatistics 10000000    #2000000000       ## <---
 
 
 # Get the filenamePrefix and filenameSuffix variables defined in the configuration header as GEANT4 aliases
@@ -64,28 +64,12 @@
 
 # Set up a monoenergetic, circular, polarized beam with a diameter that is slightly larger than the collimator diameter (0.75in <-> 9.525 mm) in order to simulate scattering off the collimator as well.
 
-
 /run/initialize
-/ang/particle gamma
-
-# Define cascades unless isotropic distr. needed
-#/ang/nstates 3                 
-#/ang/state1 2.5
-#/ang/state2 3.5
-#/ang/state3 2.5
-#/ang/polarized false
-#/ang/delta12 -0.468            ## <---- sign convention KSW?
-#/ang/delta23 0.468
-
-/ang/sourceX 0. mm
-/ang/sourceY 0. mm
-/ang/sourceZ -4. mm        ## <----
-
-/ang/sourceDX 10. mm
-/ang/sourceDY 10. mm
-/ang/sourceDZ 5. mm        
-
-/ang/sourcePV Al            ## <----
+/gps/particle gamma
+/gps/pos/type Point           
+/gps/pos/centre 0. 0. 0. mm   
+/gps/ang/type iso
+/gps/ene/type Mono
 
 
 # Run the generic macro in a loop
@@ -94,5 +78,5 @@
 # To use the variable in the macro to be looped refer to it wrapped in {} as {Variable} in the macro
 # Remember that due to the numerical inaccuracies when adding float numbers, a loop might generate a run more or less than expected!
 
-/control/foreach macros/examples/genericLoopable.mac loopVar 0.60 0.80 1.00 1.20 1.40 1.60 1.80 2.00 2.20 2.40 2.60 2.80 3.00
+/control/foreach macros/examples/genericLoopable.mac loopVar 0.60 0.80 1.00 1.20 1.40 1.60 1.80 2.00 2.20 2.40 2.60 2.80 3.00   ### 0.60 0.70 0.80 0.90 1.00 1.20 1.40 1.60 1.80 2.00 2.10 2.20 2.25 2.30 2.35 2.40 2.50 2.60 2.70 2.80 2.90 3.00 
 #/control/loop macros/examples/genericLoopable.mac loopVar 10. 15. 2.5

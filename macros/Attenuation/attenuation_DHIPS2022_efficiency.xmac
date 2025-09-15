@@ -7,7 +7,7 @@
 
 
 #[generalConfig]
-#outputDir=../Output_utr/Attenuation/242Pu_experiment/Ekin/attenuation_DHIPS2022_efficiency
+#outputDir=../Output_utr/Attenuation/242Pu_experiment/Ekin_correct/attenuation_DHIPS2022_efficiency
 #niceness=19
 #threads=100
 #ensureTerminalMultiplexer=True
@@ -37,7 +37,7 @@
 
 #[getHistogramArgs]
 #quantity=ekin         ## <---
-#maxenergy=5
+#maxenergy=4
 #maxid=3       # max ID of sensitive volumes
 
 #[histogramToTxtArgs]
@@ -66,7 +66,7 @@
 /run/initialize
 /gps/particle gamma
 /gps/pos/type Point           
-/gps/pos/centre 0. 0. 0. mm   
+/gps/pos/centre 0. 0. -2. mm   
 /gps/ang/type iso
 /gps/ene/type Mono
 

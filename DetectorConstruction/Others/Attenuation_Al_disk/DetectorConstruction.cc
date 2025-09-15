@@ -75,21 +75,26 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   /***************** Target Properties *****************/
 
 
-  // Al target dimensions
+  // Al target masses
   G4double al_mass1 = 0.1176 * g;
   G4double al_mass5 = 0.4735 * g;
-
   // Choose Al thickness via mass:
-  G4double al_mass = al_mass1;    // <--- CHANGE here: al_mass5 <-> al_mass1
+  G4double al_mass = al_mass5;    // <--- CHANGE here: al_mass5 <-> al_mass1
   
+  // Al target dimensions
   G4double al_radius = 0.5 * cm;
   G4double al_density = 2.699 * g/cm3;
   G4double al_thickness = al_mass / (pi * al_radius * al_radius * al_density);
 
+  // PEEK target dimensions
+  G4double peek_radius = 2 * cm;
+  G4double peek_density = 1.32 * g/cm3;
+  G4double peek_thickness = 2 * mm;
+
   // Detector properties
   const double detector_length = 1. * mm;
-  const double detector_radius = 10. * mm;
-  const double distance = 10. * cm;
+  const double detector_radius = 2.5 * cm;
+  const double distance = 12.5 * cm;
 
   /***************** Materials *****************/
 
@@ -97,6 +102,24 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   G4Material *vacuum = nist->FindOrBuildMaterial("G4_Galactic");
   //G4Material *target_material = nist->FindOrBuildMaterial(target_material_name);
   G4Material* matAl = nist->FindOrBuildMaterial("G4_Al");
+  G4Element* elO  = nist->FindOrBuildElement("O");
+  G4Element* elC  = nist->FindOrBuildElement("C");
+  G4Element* elH  = nist->FindOrBuildElement("H");
+  G4Element* elFe = nist->FindOrBuildElement("Fe");
+  G4Element* elCr = nist->FindOrBuildElement("Cr");
+  G4Element* elNi = nist->FindOrBuildElement("Ni");
+  G4Element* elMo = nist->FindOrBuildElement("Mo");
+  G4Element* elMn = nist->FindOrBuildElement("Mn");
+  G4Element* elSi = nist->FindOrBuildElement("Si");
+  G4Element* elCl = nist->FindOrBuildElement("Cl");
+
+
+  // PEEK container
+  G4int ncomponents;
+  G4Material* peek = new G4Material("PEEK", peek_density, ncomponents = 3);
+  peek->AddElement(elC, 19);
+  peek->AddElement(elH, 12);
+  peek->AddElement(elO, 3);
 
   /***************** World Volume *****************/
 
@@ -114,8 +137,16 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
   G4Tubs* al_solid = new G4Tubs("AlSolid", 0, al_radius, al_thickness*0.5, 0, twopi);  
   G4LogicalVolume* al_log = new G4LogicalVolume(al_solid, matAl, "AlLog");
   al_log->SetVisAttributes(G4Color::Blue());
-  G4ThreeVector al_pos(0, 0, 0);
+  G4ThreeVector al_pos(0, 0, -4 * mm);
   new G4PVPlacement(nullptr, al_pos, al_log, "Al", world_logical, false, 0);
+
+
+  // PEEK disk 
+  G4Tubs* peek_solid = new G4Tubs("PEEKSolid", 0, peek_radius, peek_thickness*0.5, 0, twopi);  
+  G4LogicalVolume* peek_log = new G4LogicalVolume(peek_solid, peek, "PEEKLog");
+  peek_log->SetVisAttributes(G4Color::White());
+  G4ThreeVector peek_pos(0, 0, -2 * mm);
+  new G4PVPlacement(nullptr, peek_pos, peek_log, "PEEK_disk", world_logical, false, 0);
 
   
   /******************** Detector ******************/

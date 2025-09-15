@@ -70,7 +70,7 @@ void Pu242_Target_full::Construct(G4ThreeVector global_coordinates) {
   G4double inner_ir = 0.5 * 12 * mm;
   G4double inner_or = 0.5 * 16 * mm;
   G4double inner_h = 13 * mm;
-  G4double inner_bottom_th = 1 * mm; // 3 * mm;
+  G4double inner_bottom_th = 1 * mm; // Depth in outher container bottom considered
   G4double inner_lid_th = 6 * mm;
   G4double puo2_th = 6 * mm;      // GUESSTIMATED!!!
 
