@@ -82,8 +82,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
 	const double container_radius = target_radius;
 	const double container_thickness = 5*mm;
 	const double distance_target_container = 2*mm;
-	const double distance_container_steelpipe = 10*mm;
-	
+	const double distance_container_steelpipe = 130*mm;
 
 	// Al disks
 	G4double al_radius = 0.5 * cm;
@@ -192,7 +191,7 @@ G4VPhysicalVolume *DetectorConstruction::Construct() {
 	new G4PVPlacement(0, G4ThreeVector(0, 0, targetposition_z - target_length/2 - collimator_to_target - total_collimator_length - beamhardener_thickness/2), Beamhardener_logical, "Beamhardener", World_logical, false, 0);	
 	
 
-	/******************** Outer Container bottom ******************/ 
+	/******************** Outer Container bottom (only for 242Pu target relevant) ******************/ 
 	//G4Tubs *container_solid = new G4Tubs("ContainerBottom_solid", 0, container_radius, 0.5 * container_thickness, 0, twopi);
 	//G4LogicalVolume *container_logical = new G4LogicalVolume(container_solid, peek, "ContainerBottom_logical");
 	//container_logical->SetVisAttributes(G4Color::White());
